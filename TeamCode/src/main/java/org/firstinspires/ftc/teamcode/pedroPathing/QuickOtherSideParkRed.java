@@ -7,7 +7,7 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-@Autonomous(name = "QuickOtherParkBlue", group = "Autonomous")
+@Autonomous(name = "QuickOtherParkRed", group = "Autonomous")
 public class QuickOtherSideParkRed extends OpMode {
 
     private Follower follower;
