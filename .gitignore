@@ -79,3 +79,23 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# ai agents
+.codex/
+.cursor/
+.claude/
+.agent/
+.windsurf/
+.aider*
+.continue/
+.opencode/
+.factory/
+tasks/
+docs/
+.specify/
+.cursor/plans/
+docs/intent/
+specs/.cache/
+specs/
+.cursor/rules/
+.cursorrules

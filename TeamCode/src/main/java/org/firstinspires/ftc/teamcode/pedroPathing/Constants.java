@@ -54,13 +54,14 @@ public class Constants {
             .xVelocity(81.28767)
             .yVelocity(59.1127);
 
+    // Offsets (mm): forward pod Y, strafe pod X — 2627 competition robot; re-measure in Pedro Tuning if needed.
     public static PinpointConstants localizerConstants = new PinpointConstants()
             .forwardPodY(107.31371)
             .strafePodX(0.0)
             .distanceUnit(DistanceUnit.MM)
             .hardwareMapName("pinpoint")
-            .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD)
-            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
+            .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
+            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
     public static Follower createFollower(HardwareMap hardwareMap) {
