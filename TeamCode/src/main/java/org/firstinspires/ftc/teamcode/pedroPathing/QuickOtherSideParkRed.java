@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
+import static com.pedropathing.api.Paths.line;
+
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
+import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -22,9 +23,8 @@ public class QuickOtherSideParkRed extends OpMode {
     @Override
     public void init() {
         follower = Constants.createFollower(hardwareMap);
-        parkPath = new Path(new BezierLine(startPose, endPose));
-        parkPath.setConstantHeadingInterpolation(Math.toRadians(270));
-        follower.setStartingPose(startPose);
+        parkPath = line(startPose, endPose).constant(Math.toRadians(270));
+        follower.setPose(startPose);
     }
 
     @Override
@@ -38,17 +38,17 @@ public class QuickOtherSideParkRed extends OpMode {
 
         switch (pathState) {
             case 0:
-                follower.followPath(parkPath);
+                follower.follow(parkPath);
                 pathState = 1;
                 break;
             case 1:
                 break;
         }
 
-        telemetry.addData("x", follower.getPose().getX());
-        telemetry.addData("y", follower.getPose().getY());
-        telemetry.addData("heading", follower.getPose().getHeading());
-        telemetry.addData("path completion %", follower.getPathCompletion());
+        telemetry.addData("x", follower.pose().x());
+        telemetry.addData("y", follower.pose().y());
+        telemetry.addData("heading", follower.pose().heading());
+        telemetry.addData("path completion %", follower.completion());
         telemetry.addData("busy", follower.isBusy());
         telemetry.update();
     }

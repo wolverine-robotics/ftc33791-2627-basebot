@@ -43,10 +43,10 @@ public class ProgrammingRig2627 extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            if (gamepad1.dpad_leftWasPressed()) {
+            if (gamepad1.dpadLeftWasPressed()) {
                 pipelineIndex = Math.max(0, pipelineIndex - 1);
                 limelight.pipelineSwitch(pipelineIndex);
-            } else if (gamepad1.dpad_rightWasPressed()) {
+            } else if (gamepad1.dpadRightWasPressed()) {
                 pipelineIndex = Math.min(9, pipelineIndex + 1);
                 limelight.pipelineSwitch(pipelineIndex);
             }

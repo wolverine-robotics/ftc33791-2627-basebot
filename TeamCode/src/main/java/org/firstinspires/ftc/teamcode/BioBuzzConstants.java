@@ -12,6 +12,23 @@ public final class BioBuzzConstants {
     public static final double HIVE_BLUE_X = 86.46;
     public static final double HIVE_BLUE_Y = 91.11;
 
+    /** Field center (inches); flower positions are 90°-rotation copies about this point. */
+    public static final double FIELD_CENTER_X = 72.0;
+    public static final double FIELD_CENTER_Y = 72.0;
+
+    /** Anchor flower: bottom-left (inches). Other flowers = this point rotated 90° CCW about field center. */
+    public static final double FLOWER_BOTTOM_LEFT_X = 2.0;
+    public static final double FLOWER_BOTTOM_LEFT_Y = 47.0;
+    /** 90° CCW from bottom-left. */
+    public static final double FLOWER_BOTTOM_RIGHT_X = 97.0;
+    public static final double FLOWER_BOTTOM_RIGHT_Y = 2.0;
+    /** 180° from bottom-left. */
+    public static final double FLOWER_TOP_RIGHT_X = 142.0;
+    public static final double FLOWER_TOP_RIGHT_Y = 97.0;
+    /** 270° CCW from bottom-left. */
+    public static final double FLOWER_TOP_LEFT_X = 47.0;
+    public static final double FLOWER_TOP_LEFT_Y = 142.0;
+
     public static final String FL = "fl";
     public static final String FR = "fr";
     public static final String BL = "bl";

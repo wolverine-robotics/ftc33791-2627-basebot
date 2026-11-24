@@ -14,6 +14,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import android.graphics.Color;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -94,10 +96,10 @@ public class TeleOp2627v1 extends LinearOpMode {
 
             double heading = pinpoint.getHeading(AngleUnit.RADIANS);
 
-            if (gamepad.cross || gamepad.triangle) {
+            if (gamepad.cross || gamepad.right_bumper) {
                 lastAim = solveAim(redAlliance);
                 applyAim(lastAim);
-                if (gamepad.triangle) {
+                if (gamepad.right_bumper) {
                     shooterTargetVel = predictShooterVelocity(lastAim.distanceInches) + BioBuzzConstants.SHOOTER_PLUS;
                 }
             } else {
@@ -144,7 +146,9 @@ public class TeleOp2627v1 extends LinearOpMode {
             telemetry.addData("Shooter", "tgt %d avg %d", (int) shooterTargetVel, avgShooterVel());
             telemetry.addData("AprilTag", "id %d", latestTag != null ? latestTag.id : -1);
             if (prism != null) {
-                telemetry.addData("Prism hue", "%.0f", prism.getNormalizedColors().hue);
+                float[] hsv = new float[3];
+                Color.colorToHSV(prism.getNormalizedColors().toColor(), hsv);
+                telemetry.addData("Prism hue", "%.0f", hsv[0]);
             }
             if (breakBeamFront != null) {
                 telemetry.addData("Front beam", isFrontBeamBroken() ? "broken" : "clear");
@@ -205,7 +209,7 @@ public class TeleOp2627v1 extends LinearOpMode {
         for (String name : new String[]{
                 BioBuzzConstants.TURRET1, BioBuzzConstants.TURRET2,
                 BioBuzzConstants.TURRET3, BioBuzzConstants.TURRET4}) {
-            if (hardwareMap.getAllNames().contains(name)) {
+            if (hardwareMap.getAllNames(CRServo.class).contains(name)) {
                 turretMotors.add(hardwareMap.get(CRServo.class, name));
             }
         }
@@ -213,7 +217,7 @@ public class TeleOp2627v1 extends LinearOpMode {
         if (breakBeamFront != null) {
             breakBeamFront.setMode(DigitalChannel.Mode.INPUT);
         }
-        if (hardwareMap.getAllNames().contains(BioBuzzConstants.PRISM)) {
+        if (hardwareMap.getAllNames(NormalizedColorSensor.class).contains(BioBuzzConstants.PRISM)) {
             prism = hardwareMap.get(NormalizedColorSensor.class, BioBuzzConstants.PRISM);
         }
         depol = getServo(BioBuzzConstants.DEPOL);
@@ -349,10 +353,10 @@ public class TeleOp2627v1 extends LinearOpMode {
             transfer.setVelocity(BioBuzzConstants.PASSIVE_INDEX_VELOCITY);
         } else if (gamepad.left_trigger > BioBuzzConstants.TRIGGER_THRESHOLD) {
             intake.setPower(BioBuzzConstants.INTAKE_REVERSE_POWER);
-        } else if (gamepad.dpad_rightWasPressed()) {
+        } else if (gamepad.dpadRightWasPressed()) {
             setIndexPos(transfer.getCurrentPosition() + BioBuzzConstants.INDEX_STEP);
             intake.setPower(1.0);
-        } else if (gamepad.dpad_leftWasPressed()) {
+        } else if (gamepad.dpadLeftWasPressed()) {
             setIndexPos(transfer.getCurrentPosition() - BioBuzzConstants.INDEX_STEP);
             intake.setPower(-1.0);
         } else if (gamepad.circle) {
@@ -404,10 +408,11 @@ public class TeleOp2627v1 extends LinearOpMode {
     }
 
     private Servo getServo(String name) {
-        return hardwareMap.getAllNames().contains(name) ? hardwareMap.get(Servo.class, name) : null;
+        return hardwareMap.getAllNames(Servo.class).contains(name) ? hardwareMap.get(Servo.class, name) : null;
     }
 
     private DigitalChannel getDigital(String name) {
-        return hardwareMap.getAllNames().contains(name) ? hardwareMap.get(DigitalChannel.class, name) : null;
+        return hardwareMap.getAllNames(DigitalChannel.class).contains(name)
+                ? hardwareMap.get(DigitalChannel.class, name) : null;
     }
 }
