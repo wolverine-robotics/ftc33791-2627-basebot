@@ -99,3 +99,6 @@ specs/.cache/
 specs/
 .cursor/rules/
 .cursorrules
+
+# Kilo local artifacts (plans, agent state, test scripts)
+.kilo/
